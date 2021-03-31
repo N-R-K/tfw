@@ -448,7 +448,7 @@ cmd_view() {
 	text="$(cmd_cat "$@")" || die
 	local width=$(tput cols)
 	[[ $width -gt 80 ]] && width=80
-	printf "$text" | fold -w $width -s | less -R +1g
+	printf "$text" | fold -w $width -s | less -R
 }
 
 # cmd_remove() permanently deletes selected entries. Prompts for confirmation
