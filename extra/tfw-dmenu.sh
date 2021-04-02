@@ -14,7 +14,7 @@
 #################################################################
 PROMPT="dmenu"
 
-general_choices(){
+dmenu_choices(){
   CHOSEN=$( printf "new\ncat\nedit\ngrep\nhelp\ninit\nlist/ls\nremove/rm\nversion\nview" | "$PROMPT" )
 
   case "$CHOSEN" in
@@ -23,12 +23,12 @@ general_choices(){
   esac
 }
 
-entry_list(){
-  tfw list | "$PROMPT" -l 7
-}
-
 entry_get_id(){
   awk -F '.' '{print $1}'
+}
+
+entry_list(){
+  tfw list | "$PROMPT" -l 7
 }
 
 entry_view(){
@@ -56,7 +56,7 @@ entry_remove(){
 }
 
 [ -z "$1" ] &&
-  general_choices ||
+  dmenu_choices ||
   CHOSEN="$1"
 
 case "$CHOSEN" in
