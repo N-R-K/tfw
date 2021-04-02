@@ -37,7 +37,7 @@ entry_remove(){
   [ -z "$ID" ] && echo "No seletion, exiting..." && exit
 
   local CONFIRM
-  which trashh-put 1>/dev/null 2>&1 &&
+  which trash-put 1>/dev/null 2>&1 &&
     CONFIRM="Yes" ||
     CONFIRM=$( echo "No\nYes" | dmenu -i -p "Permanently delete entry?" )
 
