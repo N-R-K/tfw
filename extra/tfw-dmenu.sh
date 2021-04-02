@@ -13,7 +13,12 @@
 PROMPT="dmenu"
 
 general_choices(){
-  CHOSEN=$( printf "new\ncat\nedit\ngrep\nhelp\ninit\nlist\nremove\nversion\nview" | "$PROMPT" )
+  CHOSEN=$( printf "new\ncat\nedit\ngrep\nhelp\ninit\nlist/ls\nremove/rm\nversion\nview" | "$PROMPT" )
+
+  case "$CHOSEN" in
+    "list/ls") CHOSEN=$(echo $CHOSEN | sed 's|list/ls|list|g') ;;
+    "remove/rm") CHOSEN=$(echo $CHOSEN | sed 's|remove/rm|remove|g') ;;
+  esac
 }
 
 entry_list(){
@@ -56,7 +61,7 @@ case "$CHOSEN" in
     "new" )
       tfw new
       ;;
-    "list"|"view")
+    "list"|"ls"|"view")
       PAGER="view"
       entry_list | entry_view
       ;;
