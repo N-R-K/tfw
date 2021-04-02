@@ -25,7 +25,7 @@ entry_get_id(){
 }
 
 entry_view(){
-  entry_get_id | xargs -r tfw ${PAGER}
+  entry_get_id | xargs -r tfw "$PAGER"
 }
 
 entry_edit(){
