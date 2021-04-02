@@ -5,28 +5,30 @@
 # Dependencies: tfw (obviously) - https://github.com/climech/tfw
 #               dmenu or rofi
 #
-# Shell: POSIX compliant
+# Shell: POSIX compliant (i think)
 # Author: NRK
 
-# Change "dmenu" to "rofi -dmenu" if you wish to use rofi
-# NOTE i do not use rofi, and haven't tested if it works or not
+#################################################################
+# Change "dmenu" to "rofi -dmenu" if you wish to use rofi       #
+# NOTE i do not use rofi, and haven't tested if it works or not #
+#################################################################
 PROMPT="dmenu"
 
-general_choices(){
-  CHOSEN=$( printf "new\ncat\nedit\ngrep\nhelp\ninit\nlist/ls\nremove/rm\nversion\nview" | "$PROMPT" )
+dmenu_choices(){
+  CHOSEN=$( printf "new\ncat\nedit\ngrep\nhelp\ninit\nlist/ls\nremove/rm\nversion\nview" | "${PROMPT}" )
 
   case "$CHOSEN" in
-    "list/ls") CHOSEN=$(echo $CHOSEN | sed 's|list/ls|list|g') ;;
-    "remove/rm") CHOSEN=$(echo $CHOSEN | sed 's|remove/rm|remove|g') ;;
+    "list/ls") CHOSEN="list" ;;
+    "remove/rm") CHOSEN="remove" ;;
   esac
-}
-
-entry_list(){
-  tfw list | "$PROMPT" -l 7
 }
 
 entry_get_id(){
   awk -F '.' '{print $1}'
+}
+
+entry_list(){
+  tfw list | "${PROMPT}" -l 7
 }
 
 entry_view(){
@@ -48,17 +50,17 @@ entry_remove(){
   local CONFIRM
   which trash-put 1>/dev/null 2>&1 &&
     CONFIRM="Yes" ||
-    CONFIRM=$( echo "No\nYes" | "$PROMPT" -i -p "Permanently delete entry?" )
+    CONFIRM=$( echo "No\nYes" | "${PROMPT}" -i -p "Permanently delete entry?" )
 
   [ "$CONFIRM" = "Yes" ] && tfw rm "$ID"
 }
 
 [ -z "$1" ] &&
-  general_choices ||
+  dmenu_choices ||
   CHOSEN="$1"
 
 case "$CHOSEN" in
-    "new" )
+    "new")
       tfw new
       ;;
     "list"|"ls"|"view")
@@ -80,5 +82,9 @@ case "$CHOSEN" in
       ;;
     "remove"|"rm")
       entry_list | entry_remove
+      ;;
+    *)
+      echo "Invalid command" |
+        "${PROMPT}" 1>/dev/null 2>&1
       ;;
 esac
