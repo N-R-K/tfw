@@ -8,12 +8,16 @@
 # Shell: POSIX compliant
 # Author: NRK
 
+# Change "dmenu" to "rofi -dmenu" if you wish to use rofi
+# NOTE i do not use rofi, and haven't tested if it works or not
+PROMPT="dmenu"
+
 general_choices(){
-  CHOSEN=$( printf "new\ncat\nedit\ngrep\nhelp\ninit\nlist\nremove\nversion\nview" | dmenu )
+  CHOSEN=$( printf "new\ncat\nedit\ngrep\nhelp\ninit\nlist\nremove\nversion\nview" | "$PROMPT" )
 }
 
 entry_list(){
-  tfw list | dmenu -l 7
+  tfw list | "$PROMPT" -l 7
 }
 
 entry_get_id(){
@@ -39,7 +43,7 @@ entry_remove(){
   local CONFIRM
   which trash-put 1>/dev/null 2>&1 &&
     CONFIRM="Yes" ||
-    CONFIRM=$( echo "No\nYes" | dmenu -i -p "Permanently delete entry?" )
+    CONFIRM=$( echo "No\nYes" | "$PROMPT" -i -p "Permanently delete entry?" )
 
   [ "$CONFIRM" = "Yes" ] && tfw rm "$ID"
 }
