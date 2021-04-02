@@ -18,8 +18,8 @@ dmenu_choices(){
   CHOSEN=$( printf "new\ncat\nedit\ngrep\nhelp\ninit\nlist/ls\nremove/rm\nversion\nview" | "${PROMPT}" )
 
   case "$CHOSEN" in
-    "list/ls") CHOSEN=$(echo $CHOSEN | sed 's|list/ls|list|g') ;;
-    "remove/rm") CHOSEN=$(echo $CHOSEN | sed 's|remove/rm|remove|g') ;;
+    "list/ls") CHOSEN="list" ;;
+    "remove/rm") CHOSEN="remove" ;;
   esac
 }
 
