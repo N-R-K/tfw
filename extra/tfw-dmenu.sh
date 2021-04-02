@@ -5,11 +5,13 @@
 # Dependencies: tfw (obviously) - https://github.com/climech/tfw
 #               dmenu or rofi
 #
-# Shell: POSIX compliant
+# Shell: POSIX compliant (i think)
 # Author: NRK
 
-# Change "dmenu" to "rofi -dmenu" if you wish to use rofi
-# NOTE i do not use rofi, and haven't tested if it works or not
+#################################################################
+# Change "dmenu" to "rofi -dmenu" if you wish to use rofi       #
+# NOTE i do not use rofi, and haven't tested if it works or not #
+#################################################################
 PROMPT="dmenu"
 
 general_choices(){
@@ -58,7 +60,7 @@ entry_remove(){
   CHOSEN="$1"
 
 case "$CHOSEN" in
-    "new" )
+    "new")
       tfw new
       ;;
     "list"|"ls"|"view")
