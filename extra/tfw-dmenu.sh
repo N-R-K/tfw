@@ -83,4 +83,8 @@ case "$CHOSEN" in
     "remove"|"rm")
       entry_list | entry_remove
       ;;
+    *)
+      echo "Invalid command" |
+        "$PROMPT" 1>/dev/null 2>&1
+      ;;
 esac
