@@ -15,7 +15,7 @@
 PROMPT="dmenu"
 
 dmenu_choices(){
-  CHOSEN=$( printf "new\ncat\nedit\ngrep\nhelp\ninit\nlist/ls\nremove/rm\nversion\nview" | "$PROMPT" )
+  CHOSEN=$( printf "new\ncat\nedit\ngrep\nhelp\ninit\nlist/ls\nremove/rm\nversion\nview" | "${PROMPT}" )
 
   case "$CHOSEN" in
     "list/ls") CHOSEN=$(echo $CHOSEN | sed 's|list/ls|list|g') ;;
@@ -28,7 +28,7 @@ entry_get_id(){
 }
 
 entry_list(){
-  tfw list | "$PROMPT" -l 7
+  tfw list | "${PROMPT}" -l 7
 }
 
 entry_view(){
@@ -50,7 +50,7 @@ entry_remove(){
   local CONFIRM
   which trash-put 1>/dev/null 2>&1 &&
     CONFIRM="Yes" ||
-    CONFIRM=$( echo "No\nYes" | "$PROMPT" -i -p "Permanently delete entry?" )
+    CONFIRM=$( echo "No\nYes" | "${PROMPT}" -i -p "Permanently delete entry?" )
 
   [ "$CONFIRM" = "Yes" ] && tfw rm "$ID"
 }
@@ -85,6 +85,6 @@ case "$CHOSEN" in
       ;;
     *)
       echo "Invalid command" |
-        "$PROMPT" 1>/dev/null 2>&1
+        "${PROMPT}" 1>/dev/null 2>&1
       ;;
 esac
