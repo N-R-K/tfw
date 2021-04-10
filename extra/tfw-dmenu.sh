@@ -49,7 +49,7 @@ entry_edit(){
 }
 
 entry_grep(){
-  entry_get_id | xargs -r tfw grep
+  echo "" | "${PROMPT}" -p "grep:" | xargs -r tfw grep
 }
 
 entry_remove(){
@@ -84,7 +84,7 @@ case "$CHOSEN" in
       entry_list | entry_edit
       ;;
     "grep")
-      entry_list | entry_grep
+      entry_grep
       ;;
     "help")
       tfw help
