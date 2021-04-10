@@ -14,6 +14,9 @@
 #################################################################
 PROMPT="dmenu"
 
+# Reverse the list so the most recent entry is at the top
+REVERSE="yes"
+
 dmenu_choices(){
   CHOSEN=$( printf "new\ncat\nedit\ngrep\nhelp\ninit\nlist/ls\nremove/rm\nversion\nview" | "${PROMPT}" )
 
@@ -27,9 +30,15 @@ entry_get_id(){
   awk -F '.' '{print $1}'
 }
 
-entry_list(){
-  tfw list | "${PROMPT}" -l 7
-}
+if [ "$REVERSE" = "yes" ]; then
+  entry_list(){
+    tfw list | sort -n -r | "${PROMPT}" -l 7
+  }
+else
+  entry_list(){
+    tfw list | "${PROMPT}" -l 7
+  }
+fi
 
 entry_view(){
   entry_get_id | xargs -r tfw "$PAGER"
