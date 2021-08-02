@@ -55,7 +55,7 @@ entry_remove() {
   # don't as for confirmation if trash-cli exists
   which trash-put 1>/dev/null 2>&1 &&
     CONFIRM="Yes" ||
-    CONFIRM=$( echo "No\nYes" | "${PROMPT}" -i -p "Permanently delete entry?" )
+    CONFIRM=$( printf "No\nYes" | "${PROMPT}" -i -p "Permanently delete entry?" )
 
   [ "$CONFIRM" = "Yes" ] && tfw rm "$ID"
 }
