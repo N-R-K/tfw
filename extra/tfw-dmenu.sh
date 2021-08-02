@@ -53,10 +53,10 @@ entry_grep(){
 }
 
 entry_remove(){
-  local ID=$(entry_get_id)
+  ID=$(entry_get_id)
   [ -z "$ID" ] && echo "No seletion, exiting..." && exit
 
-  local CONFIRM
+  # don't as for confirmation if trash-cli exists
   which trash-put 1>/dev/null 2>&1 &&
     CONFIRM="Yes" ||
     CONFIRM=$( echo "No\nYes" | "${PROMPT}" -i -p "Permanently delete entry?" )
