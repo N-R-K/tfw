@@ -19,11 +19,8 @@ REVERSE="yes"
 
 dmenu_choices() {
   CHOSEN=$( printf "new\ncat\nedit\ngrep\nhelp\ninit\nlist/ls\nremove/rm\nversion\nview" | "${PROMPT}" )
-
-  case "$CHOSEN" in
-    "list/ls") CHOSEN="list" ;;
-    "remove/rm") CHOSEN="remove" ;;
-  esac
+  # remove /ls /rm
+  CHOSEN=${CHOSEN%/*}
 }
 
 entry_get_id() {
