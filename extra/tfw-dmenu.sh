@@ -30,15 +30,11 @@ entry_get_id(){
   awk -F '.' '{print $1}'
 }
 
-if [ "$REVERSE" = "yes" ]; then
-  entry_list(){
-    tfw list | sort -n -r | "${PROMPT}" -l 7
-  }
-else
-  entry_list(){
-    tfw list | "${PROMPT}" -l 7
-  }
-fi
+entry_list(){
+  [ "$REVERSE" = "yes" ] &&
+    rev="-r"
+  tfw list | sort -n ${rev} | "${PROMPT}" -l 7
+}
 
 entry_view(){
   entry_get_id | xargs -r tfw "$PAGER"
