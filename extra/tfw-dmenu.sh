@@ -18,9 +18,9 @@ PROMPT="dmenu"
 REVERSE="yes"
 
 dmenu_choices() {
-  CHOSEN=$( printf "new\ncat\nedit\ngrep\nhelp\ninit\nlist/ls\nremove/rm\nversion\nview" | "${PROMPT}" )
+  CHOSEN="$(printf "new\ncat\nedit\ngrep\nhelp\ninit\nlist/ls\nremove/rm\nversion\nview" | $PROMPT)"
   # remove /ls /rm
-  CHOSEN=${CHOSEN%/*}
+  CHOSEN="${CHOSEN%/*}"
 }
 
 entry_get_id() {
@@ -30,7 +30,7 @@ entry_get_id() {
 entry_list() {
   [ "$REVERSE" = "yes" ] &&
     rev="-r"
-  tfw list | sort -n ${rev} | "${PROMPT}" -l 7
+  tfw list | sort -n $rev | $PROMPT -l 7
 }
 
 entry_view() {
@@ -42,17 +42,17 @@ entry_edit() {
 }
 
 entry_grep() {
-  echo "" | "${PROMPT}" -p "grep:" | xargs -r tfw grep
+  echo "" | $PROMPT -p "grep:" | xargs -r tfw grep
 }
 
 entry_remove() {
-  ID=$(entry_get_id)
+  ID="$(entry_get_id)"
   [ -z "$ID" ] && echo "No seletion, exiting..." && exit
 
   # don't as for confirmation if trash-cli exists
-  which trash-put 1>/dev/null 2>&1 &&
+  type trash-put 1>/dev/null 2>&1 &&
     CONFIRM="Yes" ||
-    CONFIRM=$( printf "No\nYes" | "${PROMPT}" -i -p "Permanently delete entry?" )
+    CONFIRM=$(printf "No\nYes" | $PROMPT -i -p "Permanently delete entry?")
 
   [ "$CONFIRM" = "Yes" ] && tfw rm "$ID"
 }
@@ -87,6 +87,6 @@ case "$CHOSEN" in
       ;;
     *)
       echo "Invalid command" |
-        "${PROMPT}" 1>/dev/null 2>&1
+        $PROMPT 1>/dev/null 2>&1
       ;;
 esac
