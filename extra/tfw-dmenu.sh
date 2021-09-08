@@ -50,7 +50,7 @@ entry_remove() {
   [ -z "$ID" ] && echo "No seletion, exiting..." && exit
 
   # don't as for confirmation if trash-cli exists
-  which trash-put 1>/dev/null 2>&1 &&
+  type trash-put 1>/dev/null 2>&1 &&
     CONFIRM="Yes" ||
     CONFIRM=$(printf "No\nYes" | $PROMPT -i -p "Permanently delete entry?")
 
